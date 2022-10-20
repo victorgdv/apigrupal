@@ -1,8 +1,8 @@
-const mongoose = require("mongoose"); //Requerimos mongoose
-//const dotenv = require ("dotenv");
-//dotenv.config();
+const mongoose = require("mongoose");
+const dotenv = require ("dotenv");
+dotenv.config(); 
 
-const DB_URL = "mongodb+srv://grupo3:grupo3@cluster0.5n6hg5m.mongodb.net/usapresidents?retryWrites=true&w=majority"
+const DB_URL = process.env.DB_URL
 
 const connect = async () => {
     try {

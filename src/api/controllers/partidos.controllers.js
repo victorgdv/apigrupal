@@ -20,4 +20,34 @@ const postNewParties = async (req,res)=> {
     }
 };
 
-module.exports = {getAllParties, postNewParties};
+const putParties = async (req,res)=> {
+    try{
+    const{id} = req.params;
+    const putParties = new Parties(req.body);
+    putParties._id = id;
+
+    const partiesDb = await Parties.findByIdAndUpdate(id, putParties, {new: true});
+    if(partiesDb){
+        return res.status(404).json({"message": "Party not found"});
+    }
+    return res.status(200).json(partiesDb);
+} catch (error){
+    return res.status(500).json(error)
+}
+};
+
+const deleteParties = async (req,res)=> {
+    try{
+        const{id} = req.params;
+        const partiesDb = await Parties.findByIdAndDelete(id);
+        if(!partiesDb){
+            return res.status(404).json({"message": "Party not found"});
+        }
+        return res.status(200).json(partiesDb);
+    } catch (error){
+        return res.status(500).json(error)
+    }
+    };
+
+
+module.exports = {getAllParties, postNewParties, putParties, deleteParties};
